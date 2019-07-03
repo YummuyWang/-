@@ -34,21 +34,13 @@ public class TestConnection {
     /**
      * Gets a connection from the properties specified in the file database.properties.
      * @return the database connection
+     * SQL server version
      */
     public static Connection getConnection() throws SQLException,IOException{
-        Properties props=new Properties();
-        try (InputStream in= Files.newInputStream(Paths.get("database.properties"))){
-            props.load(in);
-        }
-        String drivers = props.getProperty("jdbc.drivers");
-        if (drivers!=null)System.setProperty("jdbc.drivers",drivers);
-        //String url=props.getProperty("jdbc.url");
-        String url="jdbc:sqlserver://localhost";
-        String username=props.getProperty("jdbc.username");
-        String password=props.getProperty("jdbc.password");
-
-        return DriverManager.getConnection(url,username,password);
-
+       String dbURL="jdbc:sqlserver://localhost:1433;DatabaseName=test";//数据源  ！！！！注意若出现加载或者连接数据库失败一般是这里出现问题
+        String Name="数据库名  比如sa";
+        String Pwd="数据库密码";
+        return DriverManager.getConnection(dbURL,Name,Pwd);
     }
 
 }
